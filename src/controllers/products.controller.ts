@@ -28,21 +28,14 @@ export class ProductsController {
     return this.productService.findAll();
   }
 
-  @Get("/filter")
-  getFilter() {
-    return `I'm a filter`;
-  }
-
   @Get("/:id")
   @HttpCode(HttpStatus.OK)
   getOne(@Param("id", ParseIntPipe) id: number) {
-    // Con el + convierto el strign a numero
     return this.productService.findOne(id);
   }
 
   @Post()
   create(@Body() payload: CreateProductDto) {
-    console.log(payload);
     return this.productService.create(payload);
   }
 
