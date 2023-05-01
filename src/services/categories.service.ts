@@ -19,39 +19,40 @@ export class CategoriesService {
   }
 
   findOne(id: number) {
-    const product = this.categories.find((item) => item.id == id);
-    if (!product){
+    const category = this.categories.find((item) => item.id == id);
+    if (!category){
       throw new NotFoundException(`Category with id #${id} not found`);
     }
-    return product;
+    return category;
   }
 
   create(payload: CreateCategoryDto) {
     this.counterId++;
-    const newProduct = {
+    const newCategory = {
       id: this.counterId,
       ...payload
     };
-    this.categories.push(newProduct);
-    return newProduct;
+    this.categories.push(newCategory);
+    return newCategory;
   }
 
   update(payload: UpdateCategoryDto, id: number) {
-    const indexProduct = this.categories.findIndex((item) => item.id == id);
-    if (indexProduct != -1) {
-      this.categories[indexProduct] = {
-        ...this.categories[indexProduct],
+    const indexCategory = this.categories.findIndex((item) => item.id == id);
+    if (indexCategory != -1) {
+      this.categories[indexCategory] = {
+        ...this.categories[indexCategory],
         ...payload
       };
-      return this.categories[indexProduct]
+      return this.categories[indexCategory]
     }
     throw new NotFoundException(`Category with id #${id} not found`);
   }
 
   delete(id: number) {
-    const indexProduct = this.categories.findIndex((item) => item.id == id);
-    if (indexProduct != -1) {
-      this.categories.splice(indexProduct, 1);
+    const indexCategory = this.categories.findIndex((item) => item.id == id);
+    if (indexCategory != -1) {
+      this.categories.splice(indexCategory, 1);
+      return null
     }
     throw new NotFoundException(`Category with id #${id} not found`);
   }

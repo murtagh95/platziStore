@@ -55,6 +55,7 @@ export class ProductsService {
     const indexProduct = this.products.findIndex((item) => item.id == id);
     if (indexProduct != -1) {
       this.products.splice(indexProduct, 1);
+      return null
     }
     throw new NotFoundException(`Product with id #${id} not found`);
   }
