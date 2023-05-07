@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
 import { CreateCategoryDto, UpdateCategoryDto } from "../dtos/categories.dto";
-import { ParseIntPipe } from "../common/parse-int/parse-int.pipe";
+import { ParseIntPipe } from "../../common/parse-int/parse-int.pipe";
 import { CategoriesService } from "../services/categories.service";
 
 @Controller('categories')
@@ -11,8 +11,7 @@ export class CategoriesController {
   @Get()
   get(
     @Query("limit") limit = 100,
-    @Query("offset") offset = 10,
-    @Query("brand") brand: string
+    @Query("offset") offset = 10
   ) {
     return this.categoriesService.findAll();
   }

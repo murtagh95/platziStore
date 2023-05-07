@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
-import { ParseIntPipe } from "../common/parse-int/parse-int.pipe";
+import { ParseIntPipe } from "../../common/parse-int/parse-int.pipe";
 import { OrdersService } from "../services/orders.service";
 import { CreateOrderDto, UpdateOrderDto } from "../dtos/orders.dto";
 

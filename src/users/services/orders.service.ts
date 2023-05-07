@@ -1,13 +1,12 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { Category } from "../entities/categories.entity";
-import { CreateCategoryDto, UpdateCategoryDto } from "../dtos/categories.dto";
 import { Order } from "../entities/orders.entity";
 import { CreateOrderDto, UpdateOrderDto } from "../dtos/orders.dto";
-import { ProductsService } from "./products.service";
+import { ProductsService } from "../../products/services/products.service";
+import { UsersService } from "./users.service";
 
 @Injectable()
 export class OrdersService {
-  constructor(private productService: ProductsService) {}
+  constructor(private productService: ProductsService, private userService: UsersService) {}
 
   private counterId = 1;
   private orders: Order[] = [
@@ -15,9 +14,10 @@ export class OrdersService {
       id: 1,
       name: "Order 1",
       description: "Order....",
-      product_ids: [1],
-      customer_id: 1,
-      total_price: 123
+      product_ids: [this.productService.findOne(1)],
+      total_price: 123,
+      date: new Date(),
+      user: this.userService.findOne(1)
     }
   ];
 
