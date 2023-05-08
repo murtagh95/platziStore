@@ -1,7 +1,7 @@
-import { IsString, IsNumber, IsArray, IsNotEmpty, IsPositive } from 'class-validator';
-import { PartialType } from '@nestjs/mapped-types';
+import { IsString, IsNotEmpty } from 'class-validator';
+import { PartialType } from '@nestjs/swagger';
 
-export class CreateUserDto{
+export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   readonly name: string;

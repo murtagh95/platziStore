@@ -8,22 +8,23 @@ import {
   Put,
   Delete,
   HttpCode,
-  HttpStatus
+  HttpStatus,
 } from '@nestjs/common';
 import { ProductsService } from '../services/products.service';
 import { ParseIntPipe } from '../../common/parse-int/parse-int.pipe';
 import { CreateProductDto, UpdateProductDto } from '../dtos/products.dto';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
+@ApiTags('Products')
 @Controller('products')
 export class ProductsController {
-  constructor(private productService: ProductsService) {
-  }
+  constructor(private productService: ProductsService) {}
 
   @Get()
   get(
     @Query('limit') limit = 100,
     @Query('offset') offset = 10,
-    @Query('brand') brand: string
+    @Query('brand') brand: string,
   ) {
     return this.productService.findAll();
   }
@@ -40,13 +41,16 @@ export class ProductsController {
   }
 
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() payload: UpdateProductDto) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateProductDto,
+  ) {
     return this.productService.update(payload, id);
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete a specific product' })
   delete(@Param('id', ParseIntPipe) id: number) {
     return this.productService.delete(id);
   }
-
 }
