@@ -6,7 +6,7 @@ import {
   UpdateProductDto,
 } from '../dtos/products.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 
 @Injectable()
 export class ProductsService {
@@ -14,11 +14,17 @@ export class ProductsService {
     @InjectModel(Product.name) private productModel: Model<Product>,
   ) {}
   findAll(params?: FilterProductsDto) {
+    const filters: FilterQuery<Product> = {};
+    const { minPrice, maxPrice } = params;
+    if (maxPrice && minPrice) {
+      filters.price = { $gte: minPrice, $lte: maxPrice };
+    }
     if (!!params) {
       const { limit, offset } = params;
-      return this.productModel.find().skip(offset).limit(limit).exec();
+
+      return this.productModel.find(filters).skip(offset).limit(limit).exec();
     }
-    return this.productModel.find().exec();
+    return this.productModel.find(filters).exec();
   }
 
   async findOne(id: string) {

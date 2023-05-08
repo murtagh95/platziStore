@@ -13,7 +13,11 @@ import {
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 import { ProductsService } from '../services/products.service';
-import { CreateProductDto, FilterProductsDto, UpdateProductDto } from "../dtos/products.dto";
+import {
+  CreateProductDto,
+  FilterProductsDto,
+  UpdateProductDto,
+} from '../dtos/products.dto';
 import { MongoIdPipe } from '../../common/mongo-id/mongo-id.pipe';
 
 @ApiTags('Products')
@@ -38,7 +42,10 @@ export class ProductsController {
   }
 
   @Put(':id')
-  update(@Param('id', MongoIdPipe) id: string, @Body() payload: UpdateProductDto) {
+  update(
+    @Param('id', MongoIdPipe) id: string,
+    @Body() payload: UpdateProductDto,
+  ) {
     return this.productService.update(payload, id);
   }
 
