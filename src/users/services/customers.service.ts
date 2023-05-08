@@ -11,10 +11,9 @@ export class CustomersService {
       name: 'Pepe Grillo',
       country: 'Argentina',
       phone: 123,
-      dni: '1234123412'
-    }
+      dni: '1234123412',
+    },
   ];
-
 
   findAll() {
     return this.customers;
@@ -22,7 +21,7 @@ export class CustomersService {
 
   findOne(id: number) {
     const customer = this.customers.find((item) => item.id == id);
-    if (!customer){
+    if (!customer) {
       throw new NotFoundException(`Customer with id #${id} not found`);
     }
     return customer;
@@ -32,7 +31,7 @@ export class CustomersService {
     this.counterId++;
     const newCustomer = {
       id: this.counterId,
-      ...payload
+      ...payload,
     };
     this.customers.push(newCustomer);
     return newCustomer;
@@ -43,21 +42,20 @@ export class CustomersService {
     if (indexCustomer != -1) {
       this.customers[indexCustomer] = {
         ...this.customers[indexCustomer],
-        ...payload
+        ...payload,
       };
-      return this.customers[indexCustomer]
+      return this.customers[indexCustomer];
     }
     throw new NotFoundException(`Customer with id #${id} not found`);
   }
 
   delete(id: number) {
     const indexCustomer = this.customers.findIndex((item) => item.id == id);
-    console.error(indexCustomer)
+    console.error(indexCustomer);
     if (indexCustomer != -1) {
       this.customers.splice(indexCustomer, 1);
-      return null
+      return null;
     }
     throw new NotFoundException(`Customer with id #${id} not found`);
   }
-
 }

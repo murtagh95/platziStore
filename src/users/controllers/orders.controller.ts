@@ -16,14 +16,12 @@ import { ApiTags } from '@nestjs/swagger';
 @ApiTags('Orders')
 @Controller('orders')
 export class OrdersController {
-  constructor(private ordersService: OrdersService) {
-  }
+  constructor(private ordersService: OrdersService) {}
 
   @Get()
-  get(
-    @Query('limit') limit = 100,
-    @Query('offset') offset = 10
-  ) {
+  get(@Query('limit') limit = 100, @Query('offset') offset = 10) {
+    console.log(`limit => ${limit}`);
+    console.log(`offset => ${offset}`);
     return this.ordersService.findAll();
   }
 
@@ -38,7 +36,10 @@ export class OrdersController {
   }
 
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() payload: UpdateOrderDto) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateOrderDto,
+  ) {
     return this.ordersService.update(payload, id);
   }
 

@@ -10,10 +10,9 @@ export class BrandsService {
       id: 1,
       name: 'Nike',
       description: 'Shoes brand',
-      country: 'Argentina'
-    }
+      country: 'Argentina',
+    },
   ];
-
 
   findAll() {
     return this.brands;
@@ -21,7 +20,7 @@ export class BrandsService {
 
   findOne(id: number) {
     const product = this.brands.find((item) => item.id == id);
-    if (!product){
+    if (!product) {
       throw new NotFoundException(`Brand with id #${id} not found`);
     }
     return product;
@@ -31,7 +30,7 @@ export class BrandsService {
     this.counterId++;
     const newBrand = {
       id: this.counterId,
-      ...payload
+      ...payload,
     };
     this.brands.push(newBrand);
     return newBrand;
@@ -42,21 +41,20 @@ export class BrandsService {
     if (indexBrand != -1) {
       this.brands[indexBrand] = {
         ...this.brands[indexBrand],
-        ...payload
+        ...payload,
       };
-      return this.brands[indexBrand]
+      return this.brands[indexBrand];
     }
     throw new NotFoundException(`Brand with id #${id} not found`);
   }
 
   delete(id: number) {
     const indexBrand = this.brands.findIndex((item) => item.id == id);
-    console.error(indexBrand)
+    console.error(indexBrand);
     if (indexBrand != -1) {
       this.brands.splice(indexBrand, 1);
-      return null
+      return null;
     }
     throw new NotFoundException(`Brand with id #${id} not found`);
   }
-
 }

@@ -20,6 +20,10 @@ export class CategoriesController {
 
   @Get()
   get(@Query('limit') limit = 100, @Query('offset') offset = 10) {
+    console.log(`limit => ${limit}`);
+    console.log(`offset => ${offset}`);
+    console.log(`limit => ${limit}`);
+    console.log(`offset => ${offset}`);
     return this.categoriesService.findAll();
   }
 
@@ -34,7 +38,10 @@ export class CategoriesController {
   }
 
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() payload: UpdateCategoryDto) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateCategoryDto,
+  ) {
     return this.categoriesService.update(payload, id);
   }
 

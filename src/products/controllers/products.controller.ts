@@ -26,6 +26,9 @@ export class ProductsController {
     @Query('offset') offset = 10,
     @Query('brand') brand: string,
   ) {
+    console.log(`limit => ${limit}`);
+    console.log(`offset => ${offset}`);
+    console.log(`brand => ${brand}`);
     return this.productService.findAll();
   }
 

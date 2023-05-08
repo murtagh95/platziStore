@@ -20,6 +20,8 @@ export class BrandsController {
 
   @Get()
   get(@Query('limit') limit = 100, @Query('offset') offset = 10) {
+    console.log(`limit => ${limit}`);
+    console.log(`offset => ${offset}`);
     return this.brandService.findAll();
   }
 

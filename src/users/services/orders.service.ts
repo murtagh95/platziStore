@@ -6,7 +6,10 @@ import { UsersService } from './users.service';
 
 @Injectable()
 export class OrdersService {
-  constructor(private productService: ProductsService, private userService: UsersService) {}
+  constructor(
+    private productService: ProductsService,
+    private userService: UsersService,
+  ) {}
 
   private counterId = 1;
   private orders: Order[] = [
@@ -17,10 +20,9 @@ export class OrdersService {
       product_ids: [this.productService.findOne(1)],
       total_price: 123,
       date: new Date(),
-      user: this.userService.findOne(1)
-    }
+      user: this.userService.findOne(1),
+    },
   ];
-
 
   findAll() {
     return this.orders;
@@ -28,7 +30,7 @@ export class OrdersService {
 
   findOne(id: number) {
     const order = this.orders.find((item) => item.id == id);
-    if (!order){
+    if (!order) {
       throw new NotFoundException(`Order with id #${id} not found`);
     }
     return order;
@@ -36,13 +38,15 @@ export class OrdersService {
 
   create(payload: CreateOrderDto) {
     this.counterId++;
-    const total_price = this.productService.findAll().reduce((accum: number, item) => {
-      return accum + item.price;
-    }, 0)
+    const total_price = this.productService
+      .findAll()
+      .reduce((accum: number, item) => {
+        return accum + item.price;
+      }, 0);
     const newOrder = {
       id: this.counterId,
       total_price,
-      ...payload
+      ...payload,
     };
     this.orders.push(newOrder);
     return newOrder;
@@ -53,9 +57,9 @@ export class OrdersService {
     if (indexOrder != -1) {
       this.orders[indexOrder] = {
         ...this.orders[indexOrder],
-        ...payload
+        ...payload,
       };
-      return this.orders[indexOrder]
+      return this.orders[indexOrder];
     }
     throw new NotFoundException(`Order with id #${id} not found`);
   }
@@ -64,9 +68,8 @@ export class OrdersService {
     const indexCategory = this.orders.findIndex((item) => item.id == id);
     if (indexCategory != -1) {
       this.orders.splice(indexCategory, 1);
-      return null
+      return null;
     }
     throw new NotFoundException(`Category with id #${id} not found`);
   }
-
 }

@@ -10,9 +10,8 @@ export class CategoriesService {
       id: 1,
       name: 'Category 1',
       description: 'Category....',
-    }
+    },
   ];
-
 
   findAll() {
     return this.categories;
@@ -20,7 +19,7 @@ export class CategoriesService {
 
   findOne(id: number) {
     const category = this.categories.find((item) => item.id == id);
-    if (!category){
+    if (!category) {
       throw new NotFoundException(`Category with id #${id} not found`);
     }
     return category;
@@ -30,7 +29,7 @@ export class CategoriesService {
     this.counterId++;
     const newCategory = {
       id: this.counterId,
-      ...payload
+      ...payload,
     };
     this.categories.push(newCategory);
     return newCategory;
@@ -41,9 +40,9 @@ export class CategoriesService {
     if (indexCategory != -1) {
       this.categories[indexCategory] = {
         ...this.categories[indexCategory],
-        ...payload
+        ...payload,
       };
-      return this.categories[indexCategory]
+      return this.categories[indexCategory];
     }
     throw new NotFoundException(`Category with id #${id} not found`);
   }
@@ -52,9 +51,8 @@ export class CategoriesService {
     const indexCategory = this.categories.findIndex((item) => item.id == id);
     if (indexCategory != -1) {
       this.categories.splice(indexCategory, 1);
-      return null
+      return null;
     }
     throw new NotFoundException(`Category with id #${id} not found`);
   }
-
 }

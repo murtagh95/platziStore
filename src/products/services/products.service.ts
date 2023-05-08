@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Product } from '../entities/products.entity';
 import { CreateProductDto, UpdateProductDto } from '../dtos/products.dto';
 
-
 @Injectable()
 export class ProductsService {
   private counterId = 1;
@@ -13,8 +12,8 @@ export class ProductsService {
       description: 'Product 1, bla bla',
       price: 123,
       stock: 1,
-      image: 'www.google.com'
-    }
+      image: 'www.google.com',
+    },
   ];
 
   findAll() {
@@ -23,7 +22,7 @@ export class ProductsService {
 
   findOne(id: number) {
     const product = this.products.find((item) => item.id == id);
-    if (!product){
+    if (!product) {
       throw new NotFoundException(`Product with id #${id} not found`);
     }
     return product;
@@ -33,7 +32,7 @@ export class ProductsService {
     this.counterId++;
     const newProduct = {
       id: this.counterId,
-      ...payload
+      ...payload,
     };
     this.products.push(newProduct);
     return newProduct;
@@ -44,9 +43,9 @@ export class ProductsService {
     if (indexProduct != -1) {
       this.products[indexProduct] = {
         ...this.products[indexProduct],
-        ...payload
+        ...payload,
       };
-      return this.products[indexProduct]
+      return this.products[indexProduct];
     }
     throw new NotFoundException(`Product with id #${id} not found`);
   }
@@ -55,7 +54,7 @@ export class ProductsService {
     const indexProduct = this.products.findIndex((item) => item.id == id);
     if (indexProduct != -1) {
       this.products.splice(indexProduct, 1);
-      return null
+      return null;
     }
     throw new NotFoundException(`Product with id #${id} not found`);
   }

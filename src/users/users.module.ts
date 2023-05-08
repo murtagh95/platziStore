@@ -12,6 +12,6 @@ import { ProductsModule } from '../products/products.module';
 @Module({
   imports: [ProductsModule],
   controllers: [UsersController, CustomersController, OrdersController],
-  providers: [CustomersService, UsersService, OrdersService]
+  providers: [CustomersService, UsersService, OrdersService],
 })
 export class UsersModule {}

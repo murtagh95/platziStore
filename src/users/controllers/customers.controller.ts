@@ -19,10 +19,9 @@ export class CustomersController {
   constructor(private customersService: CustomersService) {}
 
   @Get()
-  get(
-    @Query('limit') limit = 100,
-    @Query('offset') offset = 10
-  ) {
+  get(@Query('limit') limit = 100, @Query('offset') offset = 10) {
+    console.log(`limit => ${limit}`);
+    console.log(`offset => ${offset}`);
     return this.customersService.findAll();
   }
 
@@ -37,7 +36,10 @@ export class CustomersController {
   }
 
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() payload: UpdateCustomerDto) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateCustomerDto,
+  ) {
     return this.customersService.update(payload, id);
   }
 
