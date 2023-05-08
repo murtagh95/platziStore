@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {Inject, Injectable, NotFoundException} from '@nestjs/common';
 import { User } from '../entities/users.entity';
 import { CreateUserDto, UpdateUserDto } from '../dtos/users.dto';
 import { Order } from '../entities/orders.entity';
@@ -6,7 +6,10 @@ import { ProductsService } from '../../products/services/products.service';
 
 @Injectable()
 export class UsersService {
-  constructor(private productService: ProductsService) {}
+  constructor(
+    private productService: ProductsService,
+    @Inject('API_KEY') private api_key: string,
+  ) {}
 
   private counterId = 1;
   private users: User[] = [
@@ -14,9 +17,8 @@ export class UsersService {
       id: 1,
       name: 'User 1',
       country: 'USA',
-    }
+    },
   ];
-
 
   findAll() {
     return this.users;
@@ -24,7 +26,7 @@ export class UsersService {
 
   findOne(id: number) {
     const user = this.users.find((item) => item.id == id);
-    if (!user){
+    if (!user) {
       throw new NotFoundException(`User with id #${id} not found`);
     }
     return user;
@@ -34,7 +36,7 @@ export class UsersService {
     this.counterId++;
     const newUser = {
       id: this.counterId,
-      ...payload
+      ...payload,
     };
     this.users.push(newUser);
     return newUser;
@@ -45,9 +47,9 @@ export class UsersService {
     if (indexUser != -1) {
       this.users[indexUser] = {
         ...this.users[indexUser],
-        ...payload
+        ...payload,
       };
-      return this.users[indexUser]
+      return this.users[indexUser];
     }
     throw new NotFoundException(`User with id #${id} not found`);
   }
@@ -56,12 +58,12 @@ export class UsersService {
     const indexUser = this.users.findIndex((item) => item.id == id);
     if (indexUser != -1) {
       this.users.splice(indexUser, 1);
-      return null
+      return null;
     }
     throw new NotFoundException(`User with id #${id} not found`);
   }
 
-  getOrderByUser(user: User): Order{
+  getOrderByUser(user: User): Order {
     return {
       id: 2,
       name: 'BLA',
@@ -69,8 +71,7 @@ export class UsersService {
       date: new Date(),
       total_price: 123,
       product_ids: this.productService.findAll(),
-      user
-    }
+      user,
+    };
   }
-
 }
