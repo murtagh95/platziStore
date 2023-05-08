@@ -6,11 +6,20 @@ import { ProductsModule } from './products/products.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
-
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [HttpModule, UsersModule, ProductsModule, DatabaseModule],
   controllers: [AppController],
+  imports: [
+    HttpModule,
+    UsersModule,
+    ProductsModule,
+    DatabaseModule,
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+      isGlobal: true,
+    }),
+  ],
   providers: [
     AppService,
     {
