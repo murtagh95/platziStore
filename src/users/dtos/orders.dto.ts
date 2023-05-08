@@ -1,7 +1,7 @@
-import { IsString, IsNumber, IsArray, IsNotEmpty, IsPositive, IsDate } from "class-validator";
-import { PartialType } from "@nestjs/mapped-types";
-import { User } from "../entities/users.entity";
-import { Product } from "../../products/entities/products.entity";
+import { IsString, IsNumber, IsArray, IsNotEmpty, IsPositive, IsDate } from 'class-validator';
+import { PartialType } from '@nestjs/mapped-types';
+import { User } from '../entities/users.entity';
+import { Product } from '../../products/entities/products.entity';
 
 export class CreateOrderDto{
   @IsString()

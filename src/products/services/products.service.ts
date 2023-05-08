@@ -1,6 +1,6 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
-import { Product } from "../entities/products.entity";
-import { CreateProductDto, UpdateProductDto } from "../dtos/products.dto";
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { Product } from '../entities/products.entity';
+import { CreateProductDto, UpdateProductDto } from '../dtos/products.dto';
 
 
 @Injectable()
@@ -9,11 +9,11 @@ export class ProductsService {
   private products: Product[] = [
     {
       id: 1,
-      name: "Product 1",
-      description: "Product 1, bla bla",
+      name: 'Product 1',
+      description: 'Product 1, bla bla',
       price: 123,
       stock: 1,
-      image: "www.google.com"
+      image: 'www.google.com'
     }
   ];
 

@@ -1,8 +1,8 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
-import { User } from "../entities/users.entity";
-import { CreateUserDto, UpdateUserDto } from "../dtos/users.dto";
-import { Order } from "../entities/orders.entity";
-import { ProductsService } from "../../products/services/products.service";
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { User } from '../entities/users.entity';
+import { CreateUserDto, UpdateUserDto } from '../dtos/users.dto';
+import { Order } from '../entities/orders.entity';
+import { ProductsService } from '../../products/services/products.service';
 
 @Injectable()
 export class UsersService {
@@ -12,8 +12,8 @@ export class UsersService {
   private users: User[] = [
     {
       id: 1,
-      name: "User 1",
-      country: "USA",
+      name: 'User 1',
+      country: 'USA',
     }
   ];
 
@@ -64,8 +64,8 @@ export class UsersService {
   getOrderByUser(user: User): Order{
     return {
       id: 2,
-      name: "BLA",
-      description: "bla bla",
+      name: 'BLA',
+      description: 'bla bla',
       date: new Date(),
       total_price: 123,
       product_ids: this.productService.findAll(),

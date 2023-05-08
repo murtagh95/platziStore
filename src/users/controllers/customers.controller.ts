@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
-import { CustomersService } from "../services/customers.service";
-import { ParseIntPipe } from "../../common/parse-int/parse-int.pipe";
-import { CreateCustomerDto, UpdateCustomerDto } from "../dtos/customers.dto";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { CustomersService } from '../services/customers.service';
+import { ParseIntPipe } from '../../common/parse-int/parse-int.pipe';
+import { CreateCustomerDto, UpdateCustomerDto } from '../dtos/customers.dto';
 
 @Controller('customers')
 export class CustomersController {
@@ -9,14 +9,14 @@ export class CustomersController {
 
   @Get()
   get(
-    @Query("limit") limit = 100,
-    @Query("offset") offset = 10
+    @Query('limit') limit = 100,
+    @Query('offset') offset = 10
   ) {
     return this.customersService.findAll();
   }
 
-  @Get("/:id")
-  getOne(@Param("id", ParseIntPipe) id: number) {
+  @Get('/:id')
+  getOne(@Param('id', ParseIntPipe) id: number) {
     return this.customersService.findOne(id);
   }
 
@@ -26,12 +26,12 @@ export class CustomersController {
   }
 
   @Put(':id')
-  update(@Param("id", ParseIntPipe) id: number, @Body() payload: UpdateCustomerDto) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() payload: UpdateCustomerDto) {
     return this.customersService.update(payload, id);
   }
 
   @Delete(':id')
-  delete(@Param("id", ParseIntPipe) id: number) {
+  delete(@Param('id', ParseIntPipe) id: number) {
     return this.customersService.delete(id);
   }
 }

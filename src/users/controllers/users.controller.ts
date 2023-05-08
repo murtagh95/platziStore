@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
-import { ParseIntPipe } from "../../common/parse-int/parse-int.pipe";
-import { UsersService } from "../services/users.service";
-import { CreateUserDto, UpdateUserDto } from "../dtos/users.dto";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { ParseIntPipe } from '../../common/parse-int/parse-int.pipe';
+import { UsersService } from '../services/users.service';
+import { CreateUserDto, UpdateUserDto } from '../dtos/users.dto';
 
 @Controller('users')
 export class UsersController {
@@ -10,19 +10,19 @@ export class UsersController {
 
   @Get()
   get(
-    @Query("limit") limit = 100,
-    @Query("offset") offset = 10
+    @Query('limit') limit = 100,
+    @Query('offset') offset = 10
   ) {
     return this.usersService.findAll();
   }
 
-  @Get("/:id")
-  getOne(@Param("id", ParseIntPipe) id: number) {
+  @Get('/:id')
+  getOne(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.findOne(id);
   }
 
-  @Get("/:id/orders")
-  getOrders(@Param("id", ParseIntPipe) id: number) {
+  @Get('/:id/orders')
+  getOrders(@Param('id', ParseIntPipe) id: number) {
     const user = this.usersService.findOne(id);
     return this.usersService.getOrderByUser(user);
   }
@@ -33,12 +33,12 @@ export class UsersController {
   }
 
   @Put(':id')
-  update(@Param("id", ParseIntPipe) id: number, @Body() payload: UpdateUserDto) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() payload: UpdateUserDto) {
     return this.usersService.update(payload, id);
   }
 
   @Delete(':id')
-  delete(@Param("id", ParseIntPipe) id: number) {
+  delete(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.delete(id);
   }
 }

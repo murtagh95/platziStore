@@ -1,5 +1,5 @@
-import { User } from "./users.entity";
-import { Product } from "../../products/entities/products.entity";
+import { User } from './users.entity';
+import { Product } from '../../products/entities/products.entity';
 
 export class Order {
   id: number;
