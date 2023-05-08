@@ -7,6 +7,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
+import { environments } from '../environments';
+import * as process from 'process';
 
 @Module({
   controllers: [AppController],
@@ -16,7 +18,7 @@ import { ConfigModule } from '@nestjs/config';
     ProductsModule,
     DatabaseModule,
     ConfigModule.forRoot({
-      envFilePath: '.env',
+      envFilePath: environments[process.env.NODE_ENV] || '.env',
       isGlobal: true,
     }),
   ],
