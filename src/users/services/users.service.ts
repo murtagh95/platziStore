@@ -65,14 +65,14 @@ export class UsersService {
     throw new NotFoundException(`User with id #${id} not found`);
   }
 
-  getOrderByUser(user: User): Order {
+  async getOrderByUser(user: User) {
     return {
       id: 2,
       name: 'BLA',
       description: 'bla bla',
       date: new Date(),
       total_price: 123,
-      product_ids: this.productService.findAll(),
+      product_ids: await this.productService.findAll(),
       user,
     };
   }

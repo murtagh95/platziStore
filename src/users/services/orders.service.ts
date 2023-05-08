@@ -17,7 +17,6 @@ export class OrdersService {
       id: 1,
       name: 'Order 1',
       description: 'Order....',
-      product_ids: [this.productService.findOne(1)],
       total_price: 123,
       date: new Date(),
       user: this.userService.findOne(1),
@@ -36,13 +35,12 @@ export class OrdersService {
     return order;
   }
 
-  create(payload: CreateOrderDto) {
+  async create(payload: CreateOrderDto) {
     this.counterId++;
-    const total_price = this.productService
-      .findAll()
-      .reduce((accum: number, item) => {
-        return accum + item.price;
-      }, 0);
+    const total_product = await this.productService.findAll();
+    const total_price = total_product.reduce((accum: number, item) => {
+      return accum + item.price;
+    }, 0);
     const newOrder = {
       id: this.counterId,
       total_price,

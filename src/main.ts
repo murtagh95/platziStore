@@ -11,6 +11,9 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true, // Eliminates undefined products in the payload
       forbidNonWhitelisted: true, // If an unspecified data is sent, Bad Request is returned.
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
     }),
   );
 
