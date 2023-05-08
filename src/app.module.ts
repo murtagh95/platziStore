@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { HttpModule, HttpService } from '@nestjs/axios';
-import { lastValueFrom } from 'rxjs';
+// import { HttpModule, HttpService } from '@nestjs/axios';
+// import { lastValueFrom } from 'rxjs';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
 import * as process from 'process';
@@ -16,7 +16,6 @@ import config from '../config';
 @Module({
   controllers: [AppController],
   imports: [
-    HttpModule,
     UsersModule,
     ProductsModule,
     DatabaseModule,
@@ -31,17 +30,6 @@ import config from '../config';
       }),
     }),
   ],
-  providers: [
-    AppService,
-    {
-      provide: 'TASKS',
-      useFactory: async (http: HttpService) => {
-        const request = http.get('https://jsonplaceholder.ir/todos');
-        const task = await lastValueFrom(request);
-        return task.data;
-      },
-      inject: [HttpService],
-    },
-  ],
+  providers: [AppService],
 })
 export class AppModule {}
