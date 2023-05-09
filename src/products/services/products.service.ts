@@ -22,9 +22,14 @@ export class ProductsService {
     if (!!params) {
       const { limit, offset } = params;
 
-      return this.productModel.find(filters).skip(offset).limit(limit).exec();
+      return this.productModel
+        .find(filters)
+        .populate('brand')
+        .skip(offset)
+        .limit(limit)
+        .exec();
     }
-    return this.productModel.find(filters).exec();
+    return this.productModel.find(filters).populate('brand').exec();
   }
 
   async findOne(id: string) {
