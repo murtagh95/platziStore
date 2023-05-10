@@ -9,13 +9,28 @@ export class OrdersService {
   constructor(@InjectModel(Order.name) private orderModel: Model<Order>) {}
 
   async findAll() {
-    return await this.orderModel.find().populate('customer').exec();
+    return await this.orderModel
+      .find()
+      .populate('customer')
+      .populate({
+        path: 'products',
+        populate: {
+          path: 'brand',
+        },
+      })
+      .exec();
   }
 
   async findOne(id: string) {
     const order = await this.orderModel
       .findById(id)
       .populate('customer')
+      .populate({
+        path: 'products',
+        populate: {
+          path: 'brand',
+        },
+      })
       .exec();
     if (!order) {
       throw new NotFoundException(`Order with id #${id} not found`);
@@ -46,6 +61,22 @@ export class OrdersService {
     if (!order) {
       throw new NotFoundException(`Order with id #${id} not found`);
     }
+    return order;
+  }
+
+  async deleteProduct(id: string, productId: string) {
+    const order = await this.orderModel.findById(id).exec();
+    order.products.pull(productId);
+    await order.save();
+    return order;
+  }
+
+  async addProduct(id: string, productsIds: string[]) {
+    const order = await this.orderModel.findById(id).exec();
+    productsIds.forEach((productId) => {
+      order.products.push(productId);
+    });
+    await order.save();
     return order;
   }
 }

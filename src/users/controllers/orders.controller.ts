@@ -9,7 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { OrdersService } from '../services/orders.service';
-import { CreateOrderDto, UpdateOrderDto } from '../dtos/orders.dto';
+import { AddProductsToOrderDto, CreateOrderDto, UpdateOrderDto } from "../dtos/orders.dto";
 import { ApiTags } from '@nestjs/swagger';
 import { MongoIdPipe } from '../../common/mongo-id/mongo-id.pipe';
 
@@ -43,8 +43,24 @@ export class OrdersController {
     return this.ordersService.update(payload, id);
   }
 
+  @Put(':id/products')
+  updateProducts(
+    @Param('id', MongoIdPipe) id: string,
+    @Body() payload: AddProductsToOrderDto,
+  ) {
+    return this.ordersService.addProduct(id, payload.productsIds);
+  }
+
   @Delete(':id')
   delete(@Param('id', MongoIdPipe) id: string) {
     return this.ordersService.delete(id);
+  }
+
+  @Delete(':id/product/:productId')
+  deleteProduct(
+    @Param('id', MongoIdPipe) id: string,
+    @Param('productId', MongoIdPipe) productId: string,
+  ) {
+    return this.ordersService.deleteProduct(id, productId);
   }
 }
