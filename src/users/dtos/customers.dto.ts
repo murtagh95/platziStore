@@ -1,5 +1,20 @@
-import { IsString, IsNumber, IsNotEmpty } from 'class-validator';
-import { PartialType } from '@nestjs/swagger';
+import {
+  IsString,
+  IsNotEmpty,
+  IsPhoneNumber,
+  ValidateNested,
+  IsArray,
+} from 'class-validator';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+
+export class CreateSkillDto {
+  @IsNotEmpty()
+  name: string;
+
+  @IsNotEmpty()
+  color: string;
+}
 
 export class CreateCustomerDto {
   @IsString()
@@ -8,7 +23,7 @@ export class CreateCustomerDto {
 
   @IsString()
   @IsNotEmpty()
-  readonly last_name: string;
+  readonly lastName: string;
 
   @IsString()
   @IsNotEmpty()
@@ -18,9 +33,16 @@ export class CreateCustomerDto {
   @IsNotEmpty()
   readonly dni: string;
 
-  @IsString()
+  @IsPhoneNumber()
   @IsNotEmpty()
   readonly phone: string;
+
+  @IsNotEmpty()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateSkillDto)
+  @ApiProperty({ type: () => [CreateSkillDto] })
+  readonly skills: CreateSkillDto[];
 }
 
 export class UpdateCustomerDto extends PartialType(CreateCustomerDto) {}
