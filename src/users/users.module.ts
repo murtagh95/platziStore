@@ -1,20 +1,23 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+
 import { CustomersController } from './controllers/customers.controller';
 import { CustomersService } from './services/customers.service';
-
-import { UsersController } from './controllers/users.controller';
-import { UsersService } from './services/users.service';
-
-import { OrdersController } from './controllers/orders.controller';
-import { OrdersService } from './services/orders.service';
-import { ProductsModule } from '../products/products.module';
-import { MongooseModule } from '@nestjs/mongoose';
 import {
   Customer,
   CustomerSchema,
   Skill,
   SkillSchema,
 } from './entities/customers.entity';
+
+import { UsersController } from './controllers/users.controller';
+import { UsersService } from './services/users.service';
+
+import { OrdersController } from './controllers/orders.controller';
+import { OrdersService } from './services/orders.service';
+import { Order, OrderSchema } from './entities/orders.entity';
+
+import { ProductsModule } from '../products/products.module';
 
 @Module({
   imports: [
@@ -27,6 +30,10 @@ import {
       {
         name: Skill.name,
         schema: SkillSchema,
+      },
+      {
+        name: Order.name,
+        schema: OrderSchema,
       },
     ]),
   ],

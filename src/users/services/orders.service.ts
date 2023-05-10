@@ -1,34 +1,22 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Order } from '../entities/orders.entity';
 import { CreateOrderDto, UpdateOrderDto } from '../dtos/orders.dto';
-import { ProductsService } from '../../products/services/products.service';
-import { UsersService } from './users.service';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class OrdersService {
-  constructor(
-    private productService: ProductsService,
-    private userService: UsersService,
-  ) {}
+  constructor(@InjectModel(Order.name) private orderModel: Model<Order>) {}
 
-  private counterId = 1;
-  private orders: Order[] = [
-    {
-      id: 1,
-      name: 'Order 1',
-      description: 'Order....',
-      total_price: 123,
-      date: new Date(),
-      user: this.userService.findOne(1),
-    },
-  ];
-
-  findAll() {
-    return this.orders;
+  async findAll() {
+    return await this.orderModel.find().populate('customer').exec();
   }
 
-  findOne(id: number) {
-    const order = this.orders.find((item) => item.id == id);
+  async findOne(id: string) {
+    const order = await this.orderModel
+      .findById(id)
+      .populate('customer')
+      .exec();
     if (!order) {
       throw new NotFoundException(`Order with id #${id} not found`);
     }
@@ -36,38 +24,28 @@ export class OrdersService {
   }
 
   async create(payload: CreateOrderDto) {
-    this.counterId++;
-    const total_product = await this.productService.findAll();
-    const total_price = total_product.reduce((accum: number, item) => {
-      return accum + item.price;
-    }, 0);
-    const newOrder = {
-      id: this.counterId,
-      total_price,
-      ...payload,
-    };
-    this.orders.push(newOrder);
+    const newOrder = new this.orderModel(payload);
+    await newOrder.save();
     return newOrder;
   }
 
-  update(payload: UpdateOrderDto, id: number) {
-    const indexOrder = this.orders.findIndex((item) => item.id == id);
-    if (indexOrder != -1) {
-      this.orders[indexOrder] = {
-        ...this.orders[indexOrder],
-        ...payload,
-      };
-      return this.orders[indexOrder];
+  update(payload: UpdateOrderDto, id: string) {
+    const order = this.orderModel.findByIdAndUpdate(
+      id,
+      { $set: payload },
+      { new: true },
+    );
+    if (!order) {
+      throw new NotFoundException(`Order with id #${id} not found`);
     }
-    throw new NotFoundException(`Order with id #${id} not found`);
+    return order;
   }
 
-  delete(id: number) {
-    const indexCategory = this.orders.findIndex((item) => item.id == id);
-    if (indexCategory != -1) {
-      this.orders.splice(indexCategory, 1);
-      return null;
+  delete(id: string) {
+    const order = this.orderModel.findByIdAndDelete(id);
+    if (!order) {
+      throw new NotFoundException(`Order with id #${id} not found`);
     }
-    throw new NotFoundException(`Category with id #${id} not found`);
+    return order;
   }
 }
