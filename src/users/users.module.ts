@@ -8,9 +8,19 @@ import { UsersService } from './services/users.service';
 import { OrdersController } from './controllers/orders.controller';
 import { OrdersService } from './services/orders.service';
 import { ProductsModule } from '../products/products.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Customer, CustomerSchema } from './entities/customers.entity';
 
 @Module({
-  imports: [ProductsModule],
+  imports: [
+    ProductsModule,
+    MongooseModule.forFeature([
+      {
+        name: Customer.name,
+        schema: CustomerSchema,
+      },
+    ]),
+  ],
   controllers: [UsersController, CustomersController, OrdersController],
   providers: [CustomersService, UsersService, OrdersService],
 })

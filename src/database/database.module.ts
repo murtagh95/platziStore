@@ -17,7 +17,7 @@ const API_KEY_PROD = 'PROD12341234';
         const { connection, username, password, host, port, name } =
           configService.database;
         return {
-          uri: `${connection}://${host}:${port}/?authMechanism=DEFAULT`,
+          uri: `${connection}://${host}:${port}/`,
           user: username,
           pass: password,
           dbName: name,

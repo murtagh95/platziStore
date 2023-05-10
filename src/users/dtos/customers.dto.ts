@@ -8,7 +8,7 @@ export class CreateCustomerDto {
 
   @IsString()
   @IsNotEmpty()
-  readonly description: string;
+  readonly last_name: string;
 
   @IsString()
   @IsNotEmpty()
@@ -18,9 +18,9 @@ export class CreateCustomerDto {
   @IsNotEmpty()
   readonly dni: string;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
-  readonly phone: number;
+  readonly phone: string;
 }
 
 export class UpdateCustomerDto extends PartialType(CreateCustomerDto) {}

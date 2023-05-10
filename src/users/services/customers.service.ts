@@ -1,61 +1,63 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Customer } from '../entities/customers.entity';
 import { CreateCustomerDto, UpdateCustomerDto } from '../dtos/customers.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class CustomersService {
-  private counterId = 1;
-  private customers: Customer[] = [
-    {
-      id: 1,
-      name: 'Pepe Grillo',
-      country: 'Argentina',
-      phone: 123,
-      dni: '1234123412',
-    },
-  ];
+  constructor(
+    @InjectModel(Customer.name) private customerModel: Model<Customer>,
+  ) {}
 
   findAll() {
-    return this.customers;
+    return this.customerModel.find().exec();
   }
 
-  findOne(id: number) {
-    const customer = this.customers.find((item) => item.id == id);
+  findOne(id: string) {
+    const customer = this.customerModel.findById(id).exec();
     if (!customer) {
       throw new NotFoundException(`Customer with id #${id} not found`);
     }
     return customer;
   }
 
-  create(payload: CreateCustomerDto) {
-    this.counterId++;
-    const newCustomer = {
-      id: this.counterId,
-      ...payload,
-    };
-    this.customers.push(newCustomer);
-    return newCustomer;
+  async create(payload: CreateCustomerDto) {
+    try {
+      const newCustomer = new this.customerModel(payload);
+      await newCustomer.save();
+      return newCustomer;
+    } catch (e) {
+      if (e.code === 11000) {
+        throw new BadRequestException(
+          'The phone must be unique to the customer.',
+        );
+      }
+      throw e;
+    }
   }
 
-  update(payload: UpdateCustomerDto, id: number) {
-    const indexCustomer = this.customers.findIndex((item) => item.id == id);
-    if (indexCustomer != -1) {
-      this.customers[indexCustomer] = {
-        ...this.customers[indexCustomer],
-        ...payload,
-      };
-      return this.customers[indexCustomer];
+  update(payload: UpdateCustomerDto, id: string) {
+    const customer = this.customerModel.findByIdAndUpdate(
+      id,
+      { $set: payload },
+      { new: true },
+    );
+    if (!customer) {
+      throw new NotFoundException(`Customer with id #${id} not found`);
     }
-    throw new NotFoundException(`Customer with id #${id} not found`);
+    return customer;
   }
 
-  delete(id: number) {
-    const indexCustomer = this.customers.findIndex((item) => item.id == id);
-    console.error(indexCustomer);
-    if (indexCustomer != -1) {
-      this.customers.splice(indexCustomer, 1);
-      return null;
+  delete(id: string) {
+    const customer = this.customerModel.findByIdAndDelete(id);
+    if (!customer) {
+      throw new NotFoundException(`Customer with id #${id} not found`);
     }
-    throw new NotFoundException(`Customer with id #${id} not found`);
+    return customer;
   }
 }
