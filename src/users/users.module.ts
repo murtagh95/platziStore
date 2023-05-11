@@ -18,6 +18,7 @@ import { OrdersService } from './services/orders.service';
 import { Order, OrderSchema } from './entities/orders.entity';
 
 import { ProductsModule } from '../products/products.module';
+import { User, UserSchema } from './entities/users.entity';
 
 @Module({
   imports: [
@@ -34,6 +35,10 @@ import { ProductsModule } from '../products/products.module';
       {
         name: Order.name,
         schema: OrderSchema,
+      },
+      {
+        name: User.name,
+        schema: UserSchema,
       },
     ]),
   ],

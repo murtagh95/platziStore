@@ -1,79 +1,59 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { User } from '../entities/users.entity';
 import { CreateUserDto, UpdateUserDto } from '../dtos/users.dto';
-import { Order } from '../entities/orders.entity';
-import { ProductsService } from '../../products/services/products.service';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    private productService: ProductsService,
-    private configService: ConfigService,
-  ) {}
+  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
-  private counterId = 1;
-  private users: User[] = [
-    {
-      id: 1,
-      name: 'User 1',
-      country: 'USA',
-    },
-  ];
-
-  findAll() {
-    console.log(this.configService.get('API_KEY'));
-    return this.users;
+  async findAll() {
+    return await this.userModel.find().exec();
   }
 
-  findOne(id: number) {
-    const user = this.users.find((item) => item.id == id);
+  findOne(id: string) {
+    const user = this.userModel.findById(id).exec();
     if (!user) {
       throw new NotFoundException(`User with id #${id} not found`);
     }
     return user;
   }
 
-  create(payload: CreateUserDto) {
-    this.counterId++;
-    const newUser = {
-      id: this.counterId,
-      ...payload,
-    };
-    this.users.push(newUser);
-    return newUser;
-  }
-
-  update(payload: UpdateUserDto, id: number) {
-    const indexUser = this.users.findIndex((item) => item.id == id);
-    if (indexUser != -1) {
-      this.users[indexUser] = {
-        ...this.users[indexUser],
-        ...payload,
-      };
-      return this.users[indexUser];
+  async create(payload: CreateUserDto) {
+    try {
+      const newUser = new this.userModel(payload);
+      await newUser.save();
+      return newUser;
+    } catch (e) {
+      if (e.code === 11000) {
+        throw new BadRequestException('The email has to be unique.');
+      }
+      throw e;
     }
-    throw new NotFoundException(`User with id #${id} not found`);
   }
 
-  delete(id: number) {
-    const indexUser = this.users.findIndex((item) => item.id == id);
-    if (indexUser != -1) {
-      this.users.splice(indexUser, 1);
-      return null;
+  update(payload: UpdateUserDto, id: string) {
+    const user = this.userModel.findByIdAndUpdate(
+      id,
+      { $set: payload },
+      { new: true },
+    );
+    if (!user) {
+      throw new NotFoundException(`User with id #${id} not found`);
     }
-    throw new NotFoundException(`User with id #${id} not found`);
+    return user;
   }
 
-  async getOrderByUser(user: User) {
-    return {
-      id: 2,
-      name: 'BLA',
-      description: 'bla bla',
-      date: new Date(),
-      total_price: 123,
-      product_ids: await this.productService.findAll(),
-      user,
-    };
+  delete(id: string) {
+    const user = this.userModel.findByIdAndDelete(id);
+    if (!user) {
+      throw new NotFoundException(`User with id #${id} not found`);
+    }
+    return user;
   }
 }

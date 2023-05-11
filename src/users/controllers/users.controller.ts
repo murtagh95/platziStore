@@ -12,6 +12,7 @@ import { ParseIntPipe } from '../../common/parse-int/parse-int.pipe';
 import { UsersService } from '../services/users.service';
 import { CreateUserDto, UpdateUserDto } from '../dtos/users.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { MongoIdPipe } from '../../common/mongo-id/mongo-id.pipe';
 
 @ApiTags('Users')
 @Controller('users')
@@ -19,21 +20,15 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get()
-  get(@Query('limit') limit = 100, @Query('offset') offset = 10) {
+  async get(@Query('limit') limit = 100, @Query('offset') offset = 10) {
     console.log(`limit => ${limit}`);
     console.log(`offset => ${offset}`);
-    return this.usersService.findAll();
+    return await this.usersService.findAll();
   }
 
   @Get('/:id')
-  getOne(@Param('id', ParseIntPipe) id: number) {
+  getOne(@Param('id', MongoIdPipe) id: string) {
     return this.usersService.findOne(id);
-  }
-
-  @Get('/:id/orders')
-  getOrders(@Param('id', ParseIntPipe) id: number) {
-    const user = this.usersService.findOne(id);
-    return this.usersService.getOrderByUser(user);
   }
 
   @Post()
@@ -42,15 +37,12 @@ export class UsersController {
   }
 
   @Put(':id')
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() payload: UpdateUserDto,
-  ) {
+  update(@Param('id', MongoIdPipe) id: string, @Body() payload: UpdateUserDto) {
     return this.usersService.update(payload, id);
   }
 
   @Delete(':id')
-  delete(@Param('id', ParseIntPipe) id: number) {
+  delete(@Param('id', MongoIdPipe) id: string) {
     return this.usersService.delete(id);
   }
 }
