@@ -12,7 +12,6 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
 
 import { ProductsService } from '../services/products.service';
 import {
@@ -21,18 +20,22 @@ import {
   UpdateProductDto,
 } from '../dtos/products.dto';
 import { MongoIdPipe } from '../../common/mongo-id/mongo-id.pipe';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { Public } from '../../auth/decorators/public.decorator';
 
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(JwtAuthGuard)
 @ApiTags('Products')
 @Controller('products')
 export class ProductsController {
   constructor(private productService: ProductsService) {}
 
+  @Public()
   @Get()
   get(@Query() params: FilterProductsDto) {
     return this.productService.findAll(params);
   }
 
+  @Public()
   @Get('/:id')
   @HttpCode(HttpStatus.OK)
   getOne(@Param('id', MongoIdPipe) id: string) {
