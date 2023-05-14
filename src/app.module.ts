@@ -12,12 +12,14 @@ import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 import { environments } from '../environments';
 import config from '../config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   controllers: [AppController],
   imports: [
     UsersModule,
     ProductsModule,
+    AuthModule,
     DatabaseModule,
     ConfigModule.forRoot({
       envFilePath: environments[process.env.NODE_ENV] || '.env',
