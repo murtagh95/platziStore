@@ -22,8 +22,11 @@ import {
 import { MongoIdPipe } from '../../common/mongo-id/mongo-id.pipe';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { Public } from '../../auth/decorators/public.decorator';
+import { Roles } from '../../auth/decorators/roles.decorator';
+import { Role } from '../../auth/models/roles.model';
+import { RolesGuard } from '../../auth/guards/roles.guard';
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('Products')
 @Controller('products')
 export class ProductsController {
@@ -42,6 +45,7 @@ export class ProductsController {
     return this.productService.findOne(id);
   }
 
+  @Roles(Role.ADMIN)
   @Post()
   create(@Body() payload: CreateProductDto) {
     return this.productService.create(payload);
