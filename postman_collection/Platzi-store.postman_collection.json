@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "db711f7a-afde-48d2-8e75-46f07dc054d2",
+		"_postman_id": "78fb9f60-ce8f-4700-b8c1-83d186936cf1",
 		"name": "Platzi-store",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "22999191"
+		"_exporter_id": "27231775"
 	},
 	"item": [
 		{
@@ -38,6 +38,28 @@
 							],
 							"path": [
 								"products"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "4",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "minPrice",
+									"value": "125",
+									"disabled": true
+								},
+								{
+									"key": "maxPrice",
+									"value": "1266",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -66,13 +88,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/products/1",
+							"raw": "{{url}}/products/645955645f52229279adef4d",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"products",
-								"1"
+								"645955645f52229279adef4d"
 							]
 						}
 					},
@@ -102,7 +124,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"hola\",\n    \"description\": \"bla bla\",\n    \"price\": 1234,\n    \"stock\": 1,\n    \"image\": \"www.google.com\",\n    \"bla\": \"bla bla\"\n}",
+							"raw": "{\n    \"name\": \"Keybord\",\n    \"description\": \"HyperX keybord\",\n    \"price\": 345,\n    \"stock\": 1,\n    \"image\": \"www.google.com\",\n    \"category\": {\n        \"name\": \"Keybord\",\n        \"description\": \"Keybord\"\n    },\n    \"brand\": \"645bf4398870dcb2ade3d4d2\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -153,13 +175,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/products/1",
+							"raw": "{{url}}/products/6459579de53c1206d4efad97",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"products",
-								"1"
+								"6459579de53c1206d4efad97"
 							]
 						}
 					},
@@ -188,17 +210,47 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/products/2",
+							"raw": "{{url}}/products/6459579de53c1206d4efad97",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"products",
-								"2"
+								"6459579de53c1206d4efad97"
 							]
 						}
 					},
 					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -458,13 +510,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/brands/1",
+							"raw": "{{url}}/brands/645ad5f4a2bc829e343afbaa",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"brands",
-								"1"
+								"645ad5f4a2bc829e343afbaa"
 							]
 						}
 					},
@@ -494,7 +546,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"hola\",\n    \"description\": \"bla bla\",\n    \"country\": \"Brazil\"\n}",
+							"raw": "{\n    \"name\": \"hola 1\",\n    \"description\": \"bla bla\",\n    \"country\": \"Brazil\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -537,7 +589,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"hola\",\n    \"description\": \"bla bla.....\"\n}",
+							"raw": "{\n    \"name\": \"hola 2\",\n    \"description\": \"bla bla.....\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -545,13 +597,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/categories/1",
+							"raw": "{{url}}/brands/645ad5f4a2bc829e343afbaa",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"categories",
-								"1"
+								"brands",
+								"645ad5f4a2bc829e343afbaa"
 							]
 						}
 					},
@@ -654,13 +706,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/customers/1",
+							"raw": "{{url}}/customers/645ae3156087cc8118c82464",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"customers",
-								"1"
+								"645ae3156087cc8118c82464"
 							]
 						}
 					},
@@ -690,7 +742,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"hola\",\n    \"description\": \"bla bla\",\n    \"country\": \"Brazil\",\n    \"dni\": \"1234\",\n    \"phone\": 1234111\n}",
+							"raw": "{\n    \"name\": \"hola\",\n    \"lastName\": \"Chay\",\n    \"country\": \"Brazil\",\n    \"dni\": \"1234\",\n    \"phone\": \"+54 92612528921\",\n    \"skills\": [\n        {\n            \"name\": \"Python\",\n            \"color\": \"Blue\"\n        },\n        {\n            \"name\": \"React\",\n            \"color\": \"Brown\"\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -794,6 +846,93 @@
 			"name": "Orders",
 			"item": [
 				{
+					"name": "Products",
+					"item": [
+						{
+							"name": "Add product in Order",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response time is less than 200ms\", function (){",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"productsIds\": [\n        \"645bf4418870dcb2ade3d4d4\",\n        \"645bf99c2520f45c21683589\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/orders/645bf0e998ba108425ac9162/products",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"orders",
+										"645bf0e998ba108425ac9162",
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Product by order",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response time is less than 200ms\", function (){",
+											"    pm.expect(pm.response.responseTime).to.be.below(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/orders/645bf4548870dcb2ade3d4d8/product/645bf0d398ba108425ac915c",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"orders",
+										"645bf4548870dcb2ade3d4d8",
+										"product",
+										"645bf0d398ba108425ac915c"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Get",
 					"event": [
 						{
@@ -816,12 +955,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/orders",
+							"raw": "{{url}}/orders/",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"orders"
+								"orders",
+								""
 							]
 						}
 					},
@@ -886,7 +1026,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"hola\",\n    \"description\": \"bla bla\",\n    \"product_ids\": [1],\n    \"customer_id\": 1\n}",
+							"raw": "{\n    \"date\": \"2019-09-03\",\n    \"customer\": \"645be4021e12958543f176bd\",\n    \"products\": [\n        \"645bf0d398ba108425ac915c\",\n        \"645bf4418870dcb2ade3d4d4\"\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -900,6 +1040,41 @@
 							],
 							"path": [
 								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function (){",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/orders/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"orders",
+								"2"
 							]
 						}
 					},
@@ -937,48 +1112,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/customers/1",
+							"raw": "{{url}}/orders/1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"customers",
+								"orders",
 								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"Response time is less than 200ms\", function (){",
-									"    pm.expect(pm.response.responseTime).to.be.below(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/customers/2",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"customers",
-								"2"
 							]
 						}
 					},
@@ -1046,49 +1186,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/users/1",
+							"raw": "{{url}}/users/645d8a64d4d2eb67abaa9187",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"users",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Orders",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"Response time is less than 200ms\", function (){",
-									"    pm.expect(pm.response.responseTime).to.be.below(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/users/1/orders",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"users",
-								"1",
-								"orders"
+								"645d8a64d4d2eb67abaa9187"
 							]
 						}
 					},
@@ -1118,7 +1222,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"hola\",\n    \"description\": \"bla bla\",\n    \"product_ids\": [1],\n    \"customer_id\": 1\n}",
+							"raw": "{\n    \"username\": \"Nico3\",\n    \"password\": \"1111\",\n    \"role\": \"admin\",\n    \"email\": \"admin3@admin.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1161,7 +1265,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"hola\",\n    \"description\": \"bla bla.....\"\n}",
+							"raw": "{\n    \"role\": \"customer\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1169,13 +1273,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/users/1",
+							"raw": "{{url}}/users/645da61120a8e30689291cab",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"users",
-								"1"
+								"645da61120a8e30689291cab"
 							]
 						}
 					},
@@ -1217,6 +1321,220 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function (){",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"token\", \"variable_value\");",
+									"",
+									"pm.test(\"Response data check\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.access_token).to.exist;",
+									"});",
+									"",
+									"pm.environment.set(\"token\", pm.response.json().access_token);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin3@admin.com\",\n    \"password\": \"1111\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "Get Orders",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function (){",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"pm.collectionVariables.set(\"token\", \"variable_value\");",
+									"",
+									"pm.test(\"Response data check\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.access_token).to.exist;",
+									"});",
+									"",
+									"pm.environment.set(\"token\", pm.response.json().access_token);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin3@admin.com\",\n    \"password\": \"1111\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/profile/my-orders",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"profile",
+								"my-orders"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Get hello word",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Auth",
+						"value": "0987",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Auth",
+						"value": "12341",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/nuevo",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"nuevo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get tasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/tasks",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -1243,6 +1561,10 @@
 		{
 			"value": "",
 			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": ""
 		}
 	]
 }
