@@ -38,6 +38,29 @@ export class OrdersService {
     return order;
   }
 
+  async findOneByCustomer(customerId: string) {
+    const order = await this.orderModel
+      .find({
+        where: {
+          customer: customerId,
+        },
+      })
+      .populate('customer')
+      .populate({
+        path: 'products',
+        populate: {
+          path: 'brand',
+        },
+      })
+      .exec();
+    if (!order) {
+      throw new NotFoundException(
+        `Order with customer id #${customerId} not found`,
+      );
+    }
+    return order;
+  }
+
   async create(payload: CreateOrderDto) {
     const newOrder = new this.orderModel(payload);
     await newOrder.save();
