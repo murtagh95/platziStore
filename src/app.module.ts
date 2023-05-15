@@ -34,6 +34,7 @@ import { AuthModule } from './auth/auth.module';
         DATABASE_PASSWORD: Joi.string().required(),
         DATABASE_HOST: Joi.string().required(),
         DATABASE_CONNECTION: Joi.string().required(),
+        SERVER_PORT: Joi.number().required(),
       }),
     }),
   ],
